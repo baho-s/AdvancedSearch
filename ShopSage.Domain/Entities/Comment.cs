@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopSage.Domain.Entities
 {
-    internal class Comment
+    public class Comment
     {
     }
 }
