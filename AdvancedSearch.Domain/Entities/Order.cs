@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AdvancedSearchDomain.Common;
+using ShopSage.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace ShopSage.Domain.Entities
 {
-    public class Order
+    public class Order: BaseEntity,IAggregateRoot
     {
-        public int OrderId { get; set; }
         public int TotalPrice { get; private set; }
         public DateTime OrderDate { get; private set; }
         public int CustomerId { get; private set; }
