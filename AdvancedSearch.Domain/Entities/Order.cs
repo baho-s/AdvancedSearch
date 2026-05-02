@@ -1,4 +1,5 @@
 ﻿using AdvancedSearchDomain.Common;
+using AdvancedSearchDomain.ValueObjects;
 using ShopSage.Domain.Common;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,18 @@ namespace ShopSage.Domain.Entities
     public class Order: BaseEntity,IAggregateRoot
     {
         public decimal TotalPrice { get; private set; }
-        public DateTime OrderDate { get; private set; }
+        public DateTime OrderDate { get; private set; } 
         public int CustomerId { get; private set; }
-        public Customer Customer { get; private set; }        
+        public Address Address { get; private set; }
+        public Customer Customer { get; private set; }
 
         private readonly List<OrderItem> _orderItems = new();
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
 
+        protected Order()
+        {
+
+        }
 
         public void AddOrderItem(OrderItem orderItem)
         {
@@ -25,12 +31,17 @@ namespace ShopSage.Domain.Entities
             TotalPrice += orderItem.TotalPrice;
         }   
 
-        public Order(Customer customer)
+        public Order(Customer customer, Address address)
         {
             OrderDate = DateTime.UtcNow;
             Customer=customer;
             CustomerId=customer.Id;
+            Address = address;
         }
-        //Order oluşturma aşamasında 
+
+        public void UpdateAddress(Address address)
+        {
+            Address = address;
+        }
     }
 }

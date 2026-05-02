@@ -1,4 +1,5 @@
 ﻿using AdvancedSearchDomain.Common;
+using AdvancedSearchDomain.ValueObjects;
 using ShopSage.Domain.Common;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace ShopSage.Domain.Entities
     {
         public string Name { get; private set; }
         public string Surname { get; private set; }
-        public string Address { get; private set; }
+        public Address Address { get; private set; }
         public string Email { get; private set; }
         public string TelNo { get; private set; } = string.Empty;   
 
@@ -20,7 +21,7 @@ namespace ShopSage.Domain.Entities
         public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly(); 
         
 
-        public Customer(string name, string surname, string address, string email, string telNo)
+        public Customer(string name, string surname, Address address, string email, string telNo)
         {
             Name = name;
             Surname = surname;
@@ -34,9 +35,9 @@ namespace ShopSage.Domain.Entities
             Email = email;
         }
 
-        public void AddressUpdate(string address)
+        public void AddressUpdate(Address address)
         {
-            Address = address;          
+            Address = address;
         }
     }
 }
