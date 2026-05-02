@@ -1,4 +1,5 @@
 ﻿using AdvancedSearchDomain.Common;
+using AdvancedSearchDomain.Interfaces.Services;
 using ShopSage.Domain.Common;
 using System;
 using System.Collections.Generic;
@@ -38,5 +39,17 @@ namespace ShopSage.Domain.Entities
             Description = description;
         }
 
+        public void AddComment(string content, int customerId, ICommentPolicyService commentPolicyService)
+        {
+            if (commentPolicyService.CanUserComment(customerId, this.Id))
+            {
+                var comment = new Comment(content, customerId, this.Id);
+                _comments.Add(comment);
+            }
+            else
+            {
+                throw new InvalidOperationException("Satın almadığınız bir ürüne yorum yapamazsınız.");
+            }
+        }
     }
 }
