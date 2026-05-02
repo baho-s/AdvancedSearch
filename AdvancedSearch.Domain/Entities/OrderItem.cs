@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ShopSage.Domain.Entities
 {
-    internal class OrderItem
+    public class OrderItem
     {
+
     }
 }

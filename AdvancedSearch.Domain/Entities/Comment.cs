@@ -8,5 +8,6 @@ namespace ShopSage.Domain.Entities
 {
     public class Comment
     {
+
     }
 }
