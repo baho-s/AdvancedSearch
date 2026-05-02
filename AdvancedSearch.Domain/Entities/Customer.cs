@@ -10,7 +10,6 @@ namespace ShopSage.Domain.Entities
 {
     public class Customer: BaseEntity,IAggregateRoot
     {
-        public int CustomerId { get; set; }
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public string Address { get; private set; }
@@ -37,7 +36,7 @@ namespace ShopSage.Domain.Entities
 
         public void AddressUpdate(string address)
         {
-            Address = address;
+            Address = address;          
         }
     }
 }
