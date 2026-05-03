@@ -20,6 +20,10 @@ namespace ShopSage.Domain.Entities
         private readonly List<Comment> _comments = new();
         public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly(); 
         
+        protected Customer()
+        {
+
+        }
 
         public Customer(string name, string surname, Address address, string email, string telNo)
         {

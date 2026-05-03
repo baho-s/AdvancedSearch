@@ -1,0 +1,6 @@
+@AdvancedSearch.API_HostAddress = http://localhost:5217
+
+GET {{AdvancedSearch.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
