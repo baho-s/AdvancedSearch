@@ -9,5 +9,6 @@ namespace AdvancedSearch.Infrastructure
 {
     public class UnitOfWork:IUnitOfWork
     {
+
     }
 }

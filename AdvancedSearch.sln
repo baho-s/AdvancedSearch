@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedSearch.API", "Advan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedSearch.Application", "AdvancedSearch.Application\AdvancedSearch.Application.csproj", "{D798E9ED-D62E-DDEA-3C5C-7D35FECBA5A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedSearchDomain", "AdvancedSearch.Domain\AdvancedSearchDomain.csproj", "{4B0FEA95-3652-8AC6-FBD5-20825053D44C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedSearch.Domain", "AdvancedSearch.Domain\AdvancedSearch.Domain.csproj", "{4B0FEA95-3652-8AC6-FBD5-20825053D44C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedSearch.Infrastructure", "AdvancedSearch.Infrastructure\AdvancedSearch.Infrastructure.csproj", "{9E5959A4-596C-A816-1DD9-1F2757320402}"
 EndProject

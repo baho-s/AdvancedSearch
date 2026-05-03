@@ -41,7 +41,7 @@ namespace ShopSage.Domain.Entities
 
         public void AddComment(string content, int customerId, ICommentPolicyService commentPolicyService)
         {
-            if (commentPolicyService.CanUserComment(customerId, this.Id))
+            if (commentPolicyService.HasPurchased(customerId, this.Id))
             {
                 var comment = new Comment(content, customerId, this.Id);
                 _comments.Add(comment);
