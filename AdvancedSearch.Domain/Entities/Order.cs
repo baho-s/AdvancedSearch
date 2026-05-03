@@ -25,17 +25,17 @@ namespace ShopSage.Domain.Entities
 
         }
 
-        public void AddOrderItem(OrderItem orderItem)
+        public void AddOrderItem(int productId, int quantity, decimal price)
         {
+            var orderItem = new OrderItem(productId, quantity, price);
             _orderItems.Add(orderItem);
             TotalPrice += orderItem.TotalPrice;
         }   
 
-        public Order(Customer customer, Address address)
+        public Order(int customerId, Address address)
         {
             OrderDate = DateTime.UtcNow;
-            Customer=customer;
-            CustomerId=customer.Id;
+            CustomerId=customerId;
             Address = address;
         }
 
