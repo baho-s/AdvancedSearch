@@ -1,4 +1,8 @@
+using AdvancedSearch.Application.Interfaces;
 using AdvancedSearch.Infrastructure.Context;
+using AdvancedSearch.Infrastructure.Services;
+using AdvancedSearch.Infrastructure.UnitOfWork;
+using AdvancedSearchDomain.Interfaces.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +16,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ICurrentUserService, FakeCurrentUserService>();
+builder.Services.AddScoped<AppDbContext>();
 
 var app = builder.Build();
 
