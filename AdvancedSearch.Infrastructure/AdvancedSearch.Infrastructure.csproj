@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdvancedSearch.Application\AdvancedSearch.Application.csproj" />
     <ProjectReference Include="..\AdvancedSearch.Domain\AdvancedSearch.Domain.csproj" />
   </ItemGroup>
 
