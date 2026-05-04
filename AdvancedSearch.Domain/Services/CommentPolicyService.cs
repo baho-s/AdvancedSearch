@@ -17,7 +17,7 @@ namespace AdvancedSearchDomain.Services
             _orderRepository = orderRepository;
         }
 
-        public bool HasPurchased(int customerId, int productId)
+        public bool HasPurchased(Guid customerId, Guid productId)
         {
             return _orderRepository.HasPurchased(customerId, productId);
         }

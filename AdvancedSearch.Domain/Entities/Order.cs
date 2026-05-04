@@ -11,9 +11,10 @@ namespace ShopSage.Domain.Entities
 {
     public class Order: BaseEntity,IAggregateRoot
     {
+        public string OrderNumber { get; set; }
         public decimal TotalPrice { get; private set; }
         public DateTime OrderDate { get; private set; } 
-        public int CustomerId { get; private set; }
+        public Guid CustomerId { get; private set; }
         public Address Address { get; private set; }
         public Customer Customer { get; private set; }
 
@@ -25,14 +26,14 @@ namespace ShopSage.Domain.Entities
 
         }
 
-        public void AddOrderItem(int productId, int quantity, decimal price)
+        public void AddOrderItem(Guid productId, int quantity, decimal price)
         {
             var orderItem = new OrderItem(productId, quantity, price);
             _orderItems.Add(orderItem);
             TotalPrice += orderItem.TotalPrice;
         }   
 
-        public Order(int customerId, Address address)
+        public Order(Guid customerId, Address address)
         {
             OrderDate = DateTime.UtcNow;
             CustomerId=customerId;

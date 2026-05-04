@@ -8,6 +8,6 @@ namespace AdvancedSearchDomain.Interfaces.Services
 {
     public interface ICommentPolicyService
     {
-        bool HasPurchased(int customerId,int productId);
+        bool HasPurchased(Guid customerId, Guid productId);
     }
 }

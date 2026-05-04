@@ -12,9 +12,9 @@ namespace ShopSage.Domain.Entities
         public int Quantity { get; private set; }
         public decimal UnitPrice { get; private set; }
         public decimal TotalPrice { get; private set; }
-        public int OrderId { get; private set; }
+        public Guid OrderId { get; private set; }
         public Order Order { get; private set; }
-        public int ProductId { get; private set; }
+        public Guid ProductId { get; private set; }
         public virtual Product Product { get; private set; } = null!;
 
         protected OrderItem()
@@ -22,7 +22,7 @@ namespace ShopSage.Domain.Entities
             
         }
 
-        public OrderItem(int productId, int quantity, decimal unitPrice)
+        public OrderItem(Guid productId, int quantity, decimal unitPrice)
         {
             ProductId = productId;
             Quantity = quantity;

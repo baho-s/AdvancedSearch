@@ -39,7 +39,7 @@ namespace ShopSage.Domain.Entities
             Description = description;
         }
 
-        public void AddComment(string content, int customerId, ICommentPolicyService commentPolicyService)
+        public void AddComment(string content, Guid customerId, ICommentPolicyService commentPolicyService)
         {
             if (commentPolicyService.HasPurchased(customerId, this.Id))
             {

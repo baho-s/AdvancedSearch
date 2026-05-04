@@ -10,7 +10,7 @@ namespace AdvancedSearch.Infrastructure.Repositories
         {
         }
 
-        public bool HasPurchased(int customerId, int productId)
+        public bool HasPurchased(Guid customerId, Guid productId)
         {
              return _context.Orders.Where(o => o.CustomerId == customerId)
                 .SelectMany(o => o.OrderItems)
