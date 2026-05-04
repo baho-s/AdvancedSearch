@@ -1,3 +1,4 @@
+using AdvancedSearch.Application.Features.Products.Command.CreateProduct;
 using AdvancedSearch.Application.Interfaces;
 using AdvancedSearch.Infrastructure.Context;
 using AdvancedSearch.Infrastructure.Services;
@@ -17,9 +18,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssembly(typeof(CreateProductCommand).Assembly));
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICurrentUserService, FakeCurrentUserService>();
-builder.Services.AddScoped<AppDbContext>();
 
 var app = builder.Build();
 
