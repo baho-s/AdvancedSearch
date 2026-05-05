@@ -29,14 +29,19 @@ namespace ShopSage.Domain.Entities
 
         }
 
-        public Product(string name, decimal price, int stock, string information, string features, string description)
+        public Product(Guid id)
         {
-            Name = name;
-            Price = price;
-            Stock = stock;
-            Information = information;
-            Features = features;
-            Description = description;
+            Id = id;
+        }
+
+        public void Create(string name,decimal price,int stock,string information,string features,string description)
+        {
+            Name=name;
+            Price=price;
+            Stock=stock;
+            Information=information;
+            Features=features;
+            Description=description;
         }
 
         public void AddComment(string content, Guid customerId, ICommentPolicyService commentPolicyService)

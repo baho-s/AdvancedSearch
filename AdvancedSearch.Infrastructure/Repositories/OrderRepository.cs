@@ -1,5 +1,6 @@
 ﻿using AdvancedSearch.Infrastructure.Context;
 using AdvancedSearchDomain.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 using ShopSage.Domain.Entities;
 
 namespace AdvancedSearch.Infrastructure.Repositories
@@ -10,11 +11,11 @@ namespace AdvancedSearch.Infrastructure.Repositories
         {
         }
 
-        public bool HasPurchased(Guid customerId, Guid productId)
+        public async Task<bool> HasPurchased(Guid customerId, Guid productId,CancellationToken cancellationToken=default)
         {
-             return _context.Orders.Where(o => o.CustomerId == customerId)
+             return await _context.Orders.Where(o => o.CustomerId == customerId)
                 .SelectMany(o => o.OrderItems)
-                .Any(oi => oi.ProductId == productId);
+                .AnyAsync(oi => oi.ProductId == productId,cancellationToken);
         }
     }
 }

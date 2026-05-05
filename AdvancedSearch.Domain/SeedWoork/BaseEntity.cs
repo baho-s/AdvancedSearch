@@ -8,7 +8,7 @@ namespace ShopSage.Domain.Common
 {
     public class BaseEntity
     {
-        public Guid Id { get; private set; }
+        public Guid Id { get; protected set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public bool IsDeleted { get; set; }

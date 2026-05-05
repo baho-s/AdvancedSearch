@@ -9,6 +9,6 @@ namespace AdvancedSearchDomain.Interfaces.Repositories
 {
     public interface IOrderRepository:IGenericRepository<Order>
     {
-        bool HasPurchased(Guid customerId, Guid productId);
+        Task<bool> HasPurchased(Guid customerId, Guid productId,CancellationToken cancellationToken=default);
     }
 }

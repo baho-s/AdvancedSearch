@@ -15,7 +15,7 @@ namespace AdvancedSearchDomain.Interfaces.UnitOfWork
         ICustomerRepository Customers { get; }
         ICategoryRepository Categories { get; }
 
-        Task<int> SaveChangesAsync();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken=default);
     }
 }
 
