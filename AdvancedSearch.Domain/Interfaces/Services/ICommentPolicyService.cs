@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShopSage.Domain.Entities;
 
 namespace AdvancedSearchDomain.Interfaces.Services
 {
     public interface ICommentPolicyService
     {
-        bool HasPurchased(Guid customerId, Guid productId);
+        Task<bool> HasPurchasedAsync(Guid customerId, Guid productId);
+
+        Task AddCommentToProductAsync(Guid customerId, Product product, string content);
     }
 }

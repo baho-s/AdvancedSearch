@@ -1,5 +1,6 @@
 ﻿using AdvancedSearchDomain.Interfaces.Repositories;
 using AdvancedSearchDomain.Interfaces.Services;
+using ShopSage.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,20 @@ namespace AdvancedSearchDomain.Services
             _orderRepository = orderRepository;
         }
 
-        public bool HasPurchased(Guid customerId, Guid productId)
+        public async Task AddCommentToProductAsync(Guid customerId, Product product, string content)
         {
-            return _orderRepository.HasPurchased(customerId, productId);
+            var hasPurchased = await _orderRepository.HasPurchasedAsync(customerId, product.Id);
+            if (!hasPurchased)
+            {
+                throw new InvalidOperationException("Yorum yapmak için ürünü satın almış olmalısınız.");
+            }
+
+            product.AddComment(content, customerId);
+        }
+
+        public async Task<bool> HasPurchasedAsync(Guid customerId, Guid productId)
+        {
+            return await _orderRepository.HasPurchasedAsync(customerId, productId);
         }
     }
 }

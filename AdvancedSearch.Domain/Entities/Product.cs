@@ -44,17 +44,10 @@ namespace ShopSage.Domain.Entities
             Description=description;
         }
 
-        public void AddComment(string content, Guid customerId, ICommentPolicyService commentPolicyService)
+        internal void AddComment(string content, Guid customerId)
         {
-            if (commentPolicyService.HasPurchased(customerId, this.Id))
-            {
-                var comment = new Comment(content, customerId, this.Id);
-                _comments.Add(comment);
-            }
-            else
-            {
-                throw new InvalidOperationException("Satın almadığınız bir ürüne yorum yapamazsınız.");
-            }
+            var comment = new Comment(content, customerId, this.Id);
+            _comments.Add(comment);            
         }
     }
 }
