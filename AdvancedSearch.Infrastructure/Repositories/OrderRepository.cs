@@ -11,7 +11,7 @@ namespace AdvancedSearch.Infrastructure.Repositories
         {
         }
 
-        public async Task<bool> HasPurchased(Guid customerId, Guid productId,CancellationToken cancellationToken=default)
+        public async Task<bool> HasPurchasedAsync(Guid customerId, Guid productId,CancellationToken cancellationToken=default)
         {
              return await _context.Orders.Where(o => o.CustomerId == customerId)
                 .SelectMany(o => o.OrderItems)

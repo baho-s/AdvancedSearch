@@ -19,8 +19,9 @@ namespace ShopSage.Domain.Entities
         {
         }
 
-        public Category(string categoryName)
+        public Category(Guid id, string categoryName)
         {
+            Id=id;
             CategoryName = categoryName;
         }
         

@@ -20,7 +20,8 @@ namespace AdvancedSearch.Application.Features.Products.Command.CreateProduct
 
         public async Task<Guid> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            var product = new Product(Guid.NewGuid());
+            var category=await _unitOfWork.Categories.GetByIdAsync(command.CategoryId,cancellationToken);
+            var product = new Product(Guid.NewGuid(),category.Id);
             product.Create(command.Name, command.Price, command.Stock, command.Information, command.Features, command.Description);
             await _unitOfWork.Products.AddAsync(product,cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
