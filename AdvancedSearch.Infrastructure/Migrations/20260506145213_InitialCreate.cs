@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AdvancedSearch.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate_Guid : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -132,10 +132,8 @@ namespace AdvancedSearch.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProductId = table.Column<int>(type: "integer", nullable: false),
-                    ProductId1 = table.Column<Guid>(type: "uuid", nullable: false),
-                    CategoryId = table.Column<int>(type: "integer", nullable: false),
-                    CategoryId1 = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
@@ -144,14 +142,14 @@ namespace AdvancedSearch.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_ProductCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductCategories_Categories_CategoryId1",
-                        column: x => x.CategoryId1,
+                        name: "FK_ProductCategories_Categories_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductCategories_Products_ProductId1",
-                        column: x => x.ProductId1,
+                        name: "FK_ProductCategories_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -214,14 +212,14 @@ namespace AdvancedSearch.Infrastructure.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductCategories_CategoryId1",
+                name: "IX_ProductCategories_CategoryId",
                 table: "ProductCategories",
-                column: "CategoryId1");
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductCategories_ProductId1",
+                name: "IX_ProductCategories_ProductId",
                 table: "ProductCategories",
-                column: "ProductId1");
+                column: "ProductId");
         }
 
         /// <inheritdoc />

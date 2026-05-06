@@ -238,10 +238,7 @@ namespace AdvancedSearch.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("CategoryId1")
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedDate")
@@ -250,10 +247,7 @@ namespace AdvancedSearch.Infrastructure.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("ProductId1")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -261,9 +255,9 @@ namespace AdvancedSearch.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId1");
+                    b.HasIndex("CategoryId");
 
-                    b.HasIndex("ProductId1");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductCategories");
                 });
@@ -406,13 +400,13 @@ namespace AdvancedSearch.Infrastructure.Migrations
                 {
                     b.HasOne("ShopSage.Domain.Entities.Category", "Category")
                         .WithMany("ProductCategories")
-                        .HasForeignKey("CategoryId1")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ShopSage.Domain.Entities.Product", "Product")
                         .WithMany("ProductCategories")
-                        .HasForeignKey("ProductId1")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

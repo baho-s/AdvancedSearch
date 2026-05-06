@@ -9,6 +9,6 @@ namespace AdvancedSearch.Application.Features.Categories.Command
 {
     public record CreateCategoryCommand:IRequest<Guid>
     {
-
+        public string CategoryName { get; init; }
     }
 }
