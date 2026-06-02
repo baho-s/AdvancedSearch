@@ -1,4 +1,5 @@
-﻿using AdvancedSearch.Application.Features.Categories.Command;
+﻿using AdvancedSearch.Application.Features.Categories.Command.CreateCategory;
+using AdvancedSearch.Application.Features.Categories.Query.GetCategoryList;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +21,15 @@ namespace AdvancedSearch.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryCommand command)
         {
-            var result=await _mediator.Send(command);
+            var result = await _mediator.Send(command);
             return Ok(result);
-        } 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCategories([FromQuery] GetCategoryListQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
     }
 }

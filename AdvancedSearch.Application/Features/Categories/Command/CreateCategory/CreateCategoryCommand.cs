@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdvancedSearch.Application.Features.Categories.Command
+namespace AdvancedSearch.Application.Features.Categories.Command.CreateCategory
 {
     public record CreateCategoryCommand:IRequest<Guid>
     {
