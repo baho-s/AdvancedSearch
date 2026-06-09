@@ -45,6 +45,8 @@ namespace AdvancedSearch.Infrastructure.Context
                     a.Property(p => p.ZipCode).HasMaxLength(20);
                     a.Ignore(p => p.FullAddress);
                 });
+
+            
         }
 
     }

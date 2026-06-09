@@ -1,5 +1,6 @@
 using AdvancedSearch.Application.Features.Products.Command.CreateProduct;
 using AdvancedSearch.Application.Interfaces;
+using AdvancedSearch.Domain.Interfaces.Services;
 using AdvancedSearch.Infrastructure.Context;
 using AdvancedSearch.Infrastructure.Services;
 using AdvancedSearch.Infrastructure.UnitOfWork;
@@ -22,6 +23,8 @@ builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssembly(typeof(CreateP
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICurrentUserService, FakeCurrentUserService>();
+
+builder.Services.AddHttpClient<IEmbeddingService, GrokEmbeddingService>();
 
 var app = builder.Build();
 

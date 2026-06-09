@@ -1,9 +1,13 @@
 ﻿using AdvancedSearch.Domain.Interfaces.Repositories;
 using AdvancedSearch.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
+using Pgvector;
+using Pgvector.EntityFrameworkCore;
 using ShopSage.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +17,17 @@ namespace AdvancedSearch.Infrastructure.Repositories
     {
         public ProductRepository(AppDbContext context):base(context) 
         {
+        }
+
+        public async Task<List<Product>> SearchByEmbeddingAsync(float[] queryEmbedding, int topK)
+        {
+            var vector=new Vector(queryEmbedding);
+
+            return await _context.Products
+                .Where(p=>p.Embedding!=null)//Embedding'i olmayan ürünleri filtrele
+                .OrderBy(p=> p.Embedding!.CosineDistance(vector))//Embedding'ler arasındaki kosinüs benzerliğine göre sırala
+                .Take(topK)//En benzer topK ürünü al
+                .ToListAsync();
         }
     }
 }

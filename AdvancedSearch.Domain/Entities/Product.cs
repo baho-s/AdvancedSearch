@@ -1,11 +1,6 @@
 ﻿using AdvancedSearchDomain.Common;
-using AdvancedSearchDomain.Interfaces.Services;
 using ShopSage.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Numerics;
 
 namespace ShopSage.Domain.Entities
 {
@@ -17,6 +12,8 @@ namespace ShopSage.Domain.Entities
         public string Information { get; private set; }
         public string Features { get; private set; }
         public string Description { get; private set; }
+
+        public float[]? Embedding { get; private set; }
 
         private readonly List<ProductCategory> _productCategories = new();
         public IReadOnlyCollection<ProductCategory> ProductCategories => _productCategories.AsReadOnly();
@@ -46,10 +43,16 @@ namespace ShopSage.Domain.Entities
             Description = description;
         }
 
-        internal void AddComment(string content, Guid customerId)
+        internal void AddComment(string content, Guid customerId)//neden internal? Çünkü sadece Product sınıfı içinde kullanılacak ve dışarıdan erişim sağlanmayacak.
+                                                                 //Bu yöntem, ürünle ilgili yorum eklemek için kullanılacak ve sadece ürünün kendisi tarafından çağrılabilir.
         {
             var comment = new Comment(content, customerId, this.Id);
             _comments.Add(comment);            
+        }
+
+        public void SetEmbedding(float[]? embedding)
+        {
+            Embedding = embedding;
         }
     }
 }
