@@ -1,6 +1,7 @@
 using AdvancedSearch.Application.Features.Products.Command.CreateProduct;
 using AdvancedSearch.Application.Interfaces;
 using AdvancedSearch.Domain.Interfaces.Services;
+using AdvancedSearch.Infrastructure.BackgroundServices;
 using AdvancedSearch.Infrastructure.Context;
 using AdvancedSearch.Infrastructure.Services;
 using AdvancedSearch.Infrastructure.UnitOfWork;
@@ -17,14 +18,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), o => o.UseVector()));
 
 builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssembly(typeof(CreateProductCommand).Assembly));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICurrentUserService, FakeCurrentUserService>();
 
-builder.Services.AddHttpClient<IEmbeddingService, GrokEmbeddingService>();
+builder.Services.AddHttpClient<IEmbeddingService, OllamaEmbeddingService>();
+
+builder.Services.AddHostedService<EmbeddingMigrationService>();
 
 var app = builder.Build();
 

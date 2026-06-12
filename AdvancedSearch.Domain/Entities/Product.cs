@@ -54,5 +54,14 @@ namespace ShopSage.Domain.Entities
         {
             Embedding = embedding;
         }
+        
+        public void UpdateEmbedding(float[]? embedding)
+        {
+            Embedding = embedding;
+        }
+
+        // Embedding için zengin metin üretir
+        // Infrastructure veya Application bu metodu çağırır
+        public string GetEmbeddingText()=> $"{Name} {Information} {Features} {Description}";
     }
 }

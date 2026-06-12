@@ -10,6 +10,6 @@ namespace AdvancedSearch.Domain.Interfaces.Repositories
 {
     public interface IProductRepository:IGenericRepository<Product>
     {
-        Task<List<Product>> SearchByEmbeddingAsync(float[] queryEmbedding, int topK);
+        Task<List<Product>> SearchByEmbeddingAsync(float[] queryEmbedding, int topK,CancellationToken cancellationToken);
     }
 }

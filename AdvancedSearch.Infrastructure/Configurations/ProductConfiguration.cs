@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Pgvector;
 using ShopSage.Domain.Entities;
@@ -14,12 +15,17 @@ namespace AdvancedSearch.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.Property(p=>p.Embedding)
-                .HasColumnType("vector(1536)")
+            builder.Property(p => p.Embedding)
+                .HasColumnType("vector(768)")
                 .HasConversion(
-                    v => v == null ? null : new Vector(v),     // float[] → Vector
-                    v => v == null ? null : v.ToArray()         // Vector → float[]
-            );
+                v => v == null ? null : new Vector(v),
+                v => v == null ? null : v.ToArray()
+            )
+            .Metadata.SetValueComparer(new ValueComparer<float[]>(
+                (a, b) => a != null && b != null && a.SequenceEqual(b), // eşitlik kontrolü
+                v => v.Aggregate(0, (a, b) => HashCode.Combine(a, b.GetHashCode())), // hash
+                v => v.ToArray() // snapshot
+            ));
         }
     }
 }

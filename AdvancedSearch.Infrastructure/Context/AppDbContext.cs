@@ -24,6 +24,13 @@ namespace AdvancedSearch.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // 1. PostgreSQL'e pgvector eklentisini kurmasını söylüyoruz
+            modelBuilder.HasPostgresExtension("vector");
+
+            // 2. Projedeki tüm IEntityTypeConfiguration (ProductConfiguration dahil) sınıflarını otomatik uygular
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+
+
             modelBuilder.Entity<Order>()
                 .OwnsOne(o => o.Address, a =>
                 {

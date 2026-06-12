@@ -8,6 +8,6 @@ namespace AdvancedSearch.Domain.Interfaces.Services
 {
     public interface IEmbeddingService
     {
-        Task<float[]> GetEmbeddingAsync(string text);
+        Task<float[]> GenerateEmbeddingAsync(string text);
     }
 }

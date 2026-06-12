@@ -19,15 +19,15 @@ namespace AdvancedSearch.Infrastructure.Repositories
         {
         }
 
-        public async Task<List<Product>> SearchByEmbeddingAsync(float[] queryEmbedding, int topK)
+        public async Task<List<Product>> SearchByEmbeddingAsync(float[] queryEmbedding, int topK, CancellationToken cancellationToken)
         {
             var vector=new Vector(queryEmbedding);
 
             return await _context.Products
-                .Where(p=>p.Embedding!=null)//Embedding'i olmayan ürünleri filtrele
+                .Where(p=>p.Embedding!=null && p.Stock>0)//Embedding'i olmayan ürünleri filtrele
                 .OrderBy(p=> p.Embedding!.CosineDistance(vector))//Embedding'ler arasındaki kosinüs benzerliğine göre sırala
                 .Take(topK)//En benzer topK ürünü al
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
     }
 }
