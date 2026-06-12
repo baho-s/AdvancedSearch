@@ -10,5 +10,6 @@ namespace AdvancedSearch.Domain.Interfaces.Repositories
 {
     public interface ICategoryRepository:IGenericRepository<Category>
     {
+        public Task<List<Category>> SearchByEmbeddingAsync(float[] queryEmbedding, int topK, CancellationToken cancellationToken);
     }
 }

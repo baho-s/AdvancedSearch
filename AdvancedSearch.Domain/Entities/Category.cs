@@ -7,6 +7,8 @@ namespace ShopSage.Domain.Entities
     {
         public string CategoryName { get; set; }
 
+        public float[]? Embedding { get; private set; }
+
         private readonly List<ProductCategory> _productCategories = new();
         public IReadOnlyCollection<ProductCategory> ProductCategories => _productCategories.AsReadOnly();
 
@@ -20,5 +22,9 @@ namespace ShopSage.Domain.Entities
             CategoryName = categoryName;
         }
         
+        public void UpdateEmmbedding(float[]? embedding)
+        {
+            Embedding = embedding;
+        }
     }
 }
