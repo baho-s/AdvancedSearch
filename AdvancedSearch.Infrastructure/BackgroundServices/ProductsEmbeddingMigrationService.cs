@@ -7,12 +7,12 @@ using Microsoft.Extensions.Logging;
 
 namespace AdvancedSearch.Infrastructure.BackgroundServices
 {
-    public class EmbeddingMigrationService : BackgroundService
+    public class ProductsEmbeddingMigrationService : BackgroundService
     {
         private readonly IServiceScopeFactory _scopeFactory;
-        private readonly ILogger<EmbeddingMigrationService> _logger;//ILogger'da neden generic kullanıyoruz? Çünkü bu, log mesajlarının hangi sınıftan geldiğini belirtir ve logları daha okunabilir hale getirir.
+        private readonly ILogger<ProductsEmbeddingMigrationService> _logger;//ILogger'da neden generic kullanıyoruz? Çünkü bu, log mesajlarının hangi sınıftan geldiğini belirtir ve logları daha okunabilir hale getirir.
 
-        public EmbeddingMigrationService(IServiceScopeFactory scopeFactory,ILogger<EmbeddingMigrationService> logger)
+        public ProductsEmbeddingMigrationService(IServiceScopeFactory scopeFactory,ILogger<ProductsEmbeddingMigrationService> logger)
         {
             _scopeFactory = scopeFactory;
             _logger = logger;
@@ -57,7 +57,7 @@ namespace AdvancedSearch.Infrastructure.BackgroundServices
             }
 
             await context.SaveChangesAsync(stoppingToken);
-            _logger.LogInformation("Embedding migrasyonu tamamlandı.");
+            _logger.LogInformation("Products embedding migrasyonu tamamlandı.");
 
         }
     }

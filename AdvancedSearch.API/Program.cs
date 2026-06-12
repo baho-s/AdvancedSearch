@@ -27,7 +27,8 @@ builder.Services.AddScoped<ICurrentUserService, FakeCurrentUserService>();
 
 builder.Services.AddHttpClient<IEmbeddingService, OllamaEmbeddingService>();
 
-builder.Services.AddHostedService<EmbeddingMigrationService>();
+builder.Services.AddHostedService<CategoriesEmbeddingMigrationService>();
+builder.Services.AddHostedService<ProductsEmbeddingMigrationService>();
 
 var app = builder.Build();
 

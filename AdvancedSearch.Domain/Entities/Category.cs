@@ -1,5 +1,7 @@
 ﻿using AdvancedSearchDomain.Common;
+using Microsoft.VisualBasic;
 using ShopSage.Domain.Common;
+using System.Xml.Linq;
 
 namespace ShopSage.Domain.Entities
 {
@@ -26,5 +28,8 @@ namespace ShopSage.Domain.Entities
         {
             Embedding = embedding;
         }
+
+        public string GetEmbeddingText() => $"{CategoryName}";
+
     }
 }
