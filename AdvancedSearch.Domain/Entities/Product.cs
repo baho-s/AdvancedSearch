@@ -43,7 +43,7 @@ namespace ShopSage.Domain.Entities
             Description = description;
         }
 
-        internal void AddComment(string content, Guid customerId)//neden internal? Çünkü sadece Product sınıfı içinde kullanılacak ve dışarıdan erişim sağlanmayacak.
+        public void AddComment(string content, Guid customerId)//neden internal? Çünkü sadece Product sınıfı içinde kullanılacak ve dışarıdan erişim sağlanmayacak.
                                                                  //Bu yöntem, ürünle ilgili yorum eklemek için kullanılacak ve sadece ürünün kendisi tarafından çağrılabilir.
         {
             var comment = new Comment(content, customerId, this.Id);

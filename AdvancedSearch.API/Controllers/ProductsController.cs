@@ -1,4 +1,5 @@
-﻿using AdvancedSearch.Application.Features.Products.Command.CreateProduct;
+﻿using AdvancedSearch.Application.Features.ProductComment.Comamnd.CreateComment;
+using AdvancedSearch.Application.Features.Products.Command.CreateProduct;
 using AdvancedSearch.Application.Features.Products.Query.SearchProducts;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -27,14 +28,14 @@ namespace AdvancedSearch.API.Controllers
         [HttpGet("search")]
         public async Task<IActionResult> SemanticSearch(
             [FromQuery] string query,
-            [FromQuery] int topK = 10, 
+            [FromQuery] int topK = 10,
             [FromQuery] double minScore = 0.0,
             CancellationToken cancellationToken = default)
         {
-            if(string.IsNullOrWhiteSpace(query))
+            if (string.IsNullOrWhiteSpace(query))
                 return BadRequest("Arama metini boş olamaz.");
 
-            var result= await _mediator.Send(new SearchProductsQuery(query, topK, minScore), cancellationToken);
+            var result = await _mediator.Send(new SearchProductsQuery(query, topK, minScore), cancellationToken);
 
             if (!result.Any())
                 return Ok(new
@@ -49,6 +50,14 @@ namespace AdvancedSearch.API.Controllers
                 TotalFound = result.Count,
                 Results = result
             });
+        }
+
+        [HttpPost("{id}/add-comment")]
+        public async Task<IActionResult> AddComment([FromRoute] Guid id, [FromBody] CreateCommentCommand command)
+        {
+            command.ProductId=id;
+            var result= await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }
