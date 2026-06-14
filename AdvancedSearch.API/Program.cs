@@ -5,7 +5,9 @@ using AdvancedSearch.Infrastructure.BackgroundServices;
 using AdvancedSearch.Infrastructure.Context;
 using AdvancedSearch.Infrastructure.Services;
 using AdvancedSearch.Infrastructure.UnitOfWork;
+using AdvancedSearchDomain.Interfaces.Services;
 using AdvancedSearchDomain.Interfaces.UnitOfWork;
+using AdvancedSearchDomain.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +28,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICurrentUserService, FakeCurrentUserService>();
 
 builder.Services.AddHttpClient<IEmbeddingService, OllamaEmbeddingService>();
+
+builder.Services.AddScoped<ICommentPolicyService, CommentPolicyService>();
 
 builder.Services.AddHostedService<CategoriesEmbeddingMigrationService>();
 builder.Services.AddHostedService<ProductsEmbeddingMigrationService>();

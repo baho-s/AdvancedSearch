@@ -20,45 +20,50 @@ namespace AdvancedSearch.Infrastructure.BackgroundServices
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using var scope= _scopeFactory.CreateScope();//neden using? Çünkü scope'un sonunda bellek sızıntısını önlemek için
-                                                         //scope'u düzgün bir şekilde atmak istiyoruz.
-            var context=scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            var embeddingService=scope.ServiceProvider.GetRequiredService<IEmbeddingService>();
-
-            // Sadece embedding'i olmayan ürünleri çek
-            var products = await context.Products
-                .Where(p => p.Embedding == null)
-                .ToListAsync(stoppingToken);
-
-            if (!products.Any())
+            while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Tüm ürünlerin embedding'i mevcut.");
-                return;
-            }
+                using var scope = _scopeFactory.CreateScope();//neden using? Çünkü scope'un sonunda bellek sızıntısını önlemek için
+                                                              //scope'u düzgün bir şekilde atmak istiyoruz.
+                var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                var embeddingService = scope.ServiceProvider.GetRequiredService<IEmbeddingService>();
 
-            _logger.LogInformation(
-            "{Count} ürün için embedding üretiliyor...", products.Count);
+                // Sadece embedding'i olmayan veya güncellenmesi gereken ürünleri çek
+                var products = await context.Products
+                    .Include(p => p.Comments) // Yorumları da dahil et
+                    .Where(p => p.Embedding == null || p.IsEmbeddingDirty == true)
+                    .ToListAsync(stoppingToken);
 
-            foreach(var product in products)
-            {
-                try
+                if (!products.Any())
                 {
-                    var embedding = await embeddingService.GenerateEmbeddingAsync(product.GetEmbeddingText());
-                    product.UpdateEmbedding(embedding);
-
-                    // API rate limit'e takılmamak için küçük bekleme
-                    await Task.Delay(200, stoppingToken);
+                    _logger.LogInformation("Tüm ürünlerin embedding'i mevcut.");
                 }
-                catch (Exception ex)
+
+                _logger.LogInformation(
+                "{Count} ürün için embedding üretiliyor...", products.Count);
+
+                foreach (var product in products)
                 {
-                    _logger.LogError(ex,
-                    "{ProductId} için embedding üretilemedi.", product.Id);
+                    try
+                    {
+                        var embedding = await embeddingService.GenerateEmbeddingAsync(product.GetEmbeddingText());
+                        product.UpdateEmbedding(embedding);
+                        product.MarkEmbeddingAsClean();
+
+                        // API rate limit'e takılmamak için küçük bekleme
+                        await Task.Delay(200, stoppingToken);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex,
+                        "{ProductId} için embedding üretilemedi.", product.Id);
+                    }
                 }
-            }
 
-            await context.SaveChangesAsync(stoppingToken);
-            _logger.LogInformation("Products embedding migrasyonu tamamlandı.");
-
+                await context.SaveChangesAsync(stoppingToken);
+                _logger.LogInformation("Products embedding migrasyonu tamamlandı.");
+                _logger.LogInformation("Servis 30 saniye boyunca uykuya geçiyor...");
+                await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
+            }   
         }
     }
 }

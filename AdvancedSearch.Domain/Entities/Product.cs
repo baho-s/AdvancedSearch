@@ -13,7 +13,11 @@ namespace ShopSage.Domain.Entities
         public string Features { get; private set; }
         public string Description { get; private set; }
 
+        public string AllComment { get; private set; }
+
         public float[]? Embedding { get; private set; }
+
+        public bool IsEmbeddingDirty { get; private set; }
 
         private readonly List<ProductCategory> _productCategories = new();
         public IReadOnlyCollection<ProductCategory> ProductCategories => _productCategories.AsReadOnly();
@@ -43,11 +47,12 @@ namespace ShopSage.Domain.Entities
             Description = description;
         }
 
-        public void AddComment(string content, Guid customerId)//neden internal? Çünkü sadece Product sınıfı içinde kullanılacak ve dışarıdan erişim sağlanmayacak.
+        internal void AddComment(string content, Guid customerId)//neden internal? Çünkü sadece Product sınıfı içinde kullanılacak ve dışarıdan erişim sağlanmayacak.
                                                                  //Bu yöntem, ürünle ilgili yorum eklemek için kullanılacak ve sadece ürünün kendisi tarafından çağrılabilir.
         {
             var comment = new Comment(content, customerId, this.Id);
-            _comments.Add(comment);            
+            _comments.Add(comment);
+            IsEmbeddingDirty=true; // Yorum eklendiğinde embedding'in güncellenmesi gerektiğini işaretle
         }
 
         public void SetEmbedding(float[]? embedding)
@@ -60,8 +65,20 @@ namespace ShopSage.Domain.Entities
             Embedding = embedding;
         }
 
+        public void MarkEmbeddingAsClean()
+        {
+            IsEmbeddingDirty = false;
+        }
+
         // Embedding için zengin metin üretir
         // Infrastructure veya Application bu metodu çağırır
-        public string GetEmbeddingText()=> $"{Name} {Information} {Features} {Description}";
+        public string GetEmbeddingText() 
+        { 
+            foreach (var comment in Comments)
+            {
+                AllComment += $" {comment.Content}";
+            }
+            return $"{Name} {Information} {Features} {Description} {AllComment}"; 
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AdvancedSearchDomain.Interfaces.UnitOfWork;
+﻿using AdvancedSearchDomain.Interfaces.Services;
+using AdvancedSearchDomain.Interfaces.UnitOfWork;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,11 @@ namespace AdvancedSearch.Application.Features.ProductComment.Comamnd.CreateComme
     public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, Guid>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CreateCommentCommandHandler(IUnitOfWork unitOfWork)
+        private readonly ICommentPolicyService _commentPolicyService;
+        public CreateCommentCommandHandler(IUnitOfWork unitOfWork, ICommentPolicyService commentPolicyService)
         {
             _unitOfWork = unitOfWork;
+            _commentPolicyService = commentPolicyService;
         }
 
         public async Task<Guid> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
@@ -25,7 +28,7 @@ namespace AdvancedSearch.Application.Features.ProductComment.Comamnd.CreateComme
                 throw new Exception("Bu ürün bulunamadı");
             }
             Guid customerId= Guid.Parse("a3b85f64-5717-4562-b3fc-2c963f66afa6");
-            product.AddComment(request.CommentText, customerId);
+            await _commentPolicyService.AddCommentToProductAsync(customerId,product, request.CommentText);
             await _unitOfWork.SaveChangesAsync();
             return product.Comments.Last().Id;
         }
