@@ -28,6 +28,10 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICurrentUserService, FakeCurrentUserService>();
 
 builder.Services.AddHttpClient<IEmbeddingService, OllamaEmbeddingService>();
+builder.Services.AddHttpClient<IRagService, OllamaRagService>(options =>
+{
+    options.Timeout = TimeSpan.FromMinutes(5);
+});
 
 builder.Services.AddScoped<ICommentPolicyService, CommentPolicyService>();
 

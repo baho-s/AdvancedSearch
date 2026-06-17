@@ -1,5 +1,6 @@
 ﻿using AdvancedSearch.Application.Features.ProductComment.Comamnd.CreateComment;
 using AdvancedSearch.Application.Features.Products.Command.CreateProduct;
+using AdvancedSearch.Application.Features.Products.Query.AskProductQuestion;
 using AdvancedSearch.Application.Features.Products.Query.SearchProducts;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -55,9 +56,24 @@ namespace AdvancedSearch.API.Controllers
         [HttpPost("{id}/add-comment")]
         public async Task<IActionResult> AddComment([FromRoute] Guid id, [FromBody] CreateCommentCommand command)
         {
-            command.ProductId=id;
-            var result= await _mediator.Send(command);
+            command.ProductId = id;
+            var result = await _mediator.Send(command);
             return Ok(result);
+        }
+
+        [HttpGet("RAG")]
+        public async Task<IActionResult> AskProductQuestion(
+            [FromQuery] string question,
+            CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrWhiteSpace(question))
+                return BadRequest("Soru boş olamaz.");
+            var result = await _mediator.Send(new AskProductQuery(question), cancellationToken);
+            return Ok(new
+            {
+                Question = question,
+                Answer = result.Response
+            });
         }
     }
 }
