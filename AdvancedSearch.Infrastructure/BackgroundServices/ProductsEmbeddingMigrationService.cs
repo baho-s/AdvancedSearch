@@ -45,7 +45,7 @@ namespace AdvancedSearch.Infrastructure.BackgroundServices
                 {
                     try
                     {
-                        var embedding = await embeddingService.GenerateEmbeddingAsync(product.GetEmbeddingText());
+                        var embedding = await embeddingService.GenerateEmbeddingAsync(product.BuildEmbeddingText());
                         product.UpdateEmbedding(embedding);
                         product.MarkEmbeddingAsClean();
 

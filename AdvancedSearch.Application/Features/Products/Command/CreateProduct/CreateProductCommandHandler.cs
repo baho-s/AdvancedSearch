@@ -31,7 +31,7 @@ namespace AdvancedSearch.Application.Features.Products.Command.CreateProduct
             var product=new Product(Guid.NewGuid(), category.Id,command.Name,command.Price,
                 command.Stock,command.Information,command.Features,command.Description);
 
-            var embeddingText = product.GetEmbeddingText();
+            var embeddingText = product.BuildEmbeddingText();
             var embedding = await _embeddingService.GenerateEmbeddingAsync(embeddingText);
             product.UpdateEmbedding(embedding);
 

@@ -72,13 +72,10 @@ namespace ShopSage.Domain.Entities
 
         // Embedding için zengin metin üretir
         // Infrastructure veya Application bu metodu çağırır
-        public string GetEmbeddingText() 
+        public string BuildEmbeddingText() 
         { 
-            foreach (var comment in Comments)
-            {
-                AllComment += $" {comment.Content}";
-            }
-            return $"{Name} {Information} {Features} {Description} {AllComment}"; 
+            var commentsText = string.Join(" ", Comments.Select(c => c.Content));
+            return $"{Name} {Information} {Features} {Description} {AllComment} {commentsText}"; 
         }
     }
 }
