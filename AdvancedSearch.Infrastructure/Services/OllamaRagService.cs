@@ -1,4 +1,4 @@
-﻿using AdvancedSearch.Domain.Interfaces.Services;
+﻿using AdvancedSearch.Application.Interfaces.AI;
 using AdvancedSearch.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 using ShopSage.Domain.Entities;

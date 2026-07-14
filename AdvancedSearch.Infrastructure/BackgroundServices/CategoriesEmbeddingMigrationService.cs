@@ -1,13 +1,8 @@
-﻿using AdvancedSearch.Domain.Interfaces.Services;
+﻿using AdvancedSearch.Application.Interfaces.AI;
 using AdvancedSearch.Infrastructure.Context;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdvancedSearch.Infrastructure.BackgroundServices
 {

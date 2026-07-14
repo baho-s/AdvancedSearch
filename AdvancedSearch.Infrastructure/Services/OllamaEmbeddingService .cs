@@ -1,15 +1,8 @@
-﻿using AdvancedSearch.Domain.Interfaces.Services;
+﻿using AdvancedSearch.Application.Interfaces.AI;
 using AdvancedSearch.Infrastructure.Options;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace AdvancedSearch.Infrastructure.Services
 {

@@ -1,4 +1,4 @@
-﻿using AdvancedSearch.Domain.Interfaces.Services;
+﻿using AdvancedSearch.Application.Interfaces.AI;
 using AdvancedSearch.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

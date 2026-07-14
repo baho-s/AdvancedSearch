@@ -1,12 +1,7 @@
-﻿using AdvancedSearch.Domain.Interfaces.Services;
+﻿using AdvancedSearch.Application.Interfaces.AI;
 using AdvancedSearchDomain.Interfaces.UnitOfWork;
 using MediatR;
 using ShopSage.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdvancedSearch.Application.Features.Products.Command.CreateProduct
 {

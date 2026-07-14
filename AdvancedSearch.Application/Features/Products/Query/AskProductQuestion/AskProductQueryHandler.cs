@@ -1,4 +1,4 @@
-﻿using AdvancedSearch.Domain.Interfaces.Services;
+﻿using AdvancedSearch.Application.Interfaces.AI;
 using AdvancedSearchDomain.Interfaces.UnitOfWork;
 using MediatR;
 

@@ -1,6 +1,5 @@
 using AdvancedSearch.Application.Features.Products.Command.CreateProduct;
 using AdvancedSearch.Application.Interfaces;
-using AdvancedSearch.Domain.Interfaces.Services;
 using AdvancedSearch.Infrastructure.BackgroundServices;
 using AdvancedSearch.Infrastructure.Context;
 using AdvancedSearch.Infrastructure.Options;
@@ -11,6 +10,7 @@ using AdvancedSearchDomain.Interfaces.UnitOfWork;
 using AdvancedSearchDomain.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using AdvancedSearch.Application.Interfaces.AI;
 
 var builder = WebApplication.CreateBuilder(args);
 
