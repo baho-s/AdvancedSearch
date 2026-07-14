@@ -1,5 +1,7 @@
 ﻿using AdvancedSearch.Domain.Interfaces.Services;
+using AdvancedSearch.Infrastructure.Options;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,20 +16,18 @@ namespace AdvancedSearch.Infrastructure.Services
     public class OllamaEmbeddingService : IEmbeddingService
     {
         private readonly HttpClient _httpClient;
-        // nomic-embed-text: 768 boyutlu vektör üretir, Türkçe destekler
-        private const string Model = "nomic-embed-text";
-
-        public OllamaEmbeddingService(HttpClient httpClient)
+        private readonly string _model;
+        public OllamaEmbeddingService(HttpClient httpClient,IOptions<OllamaOptions> options)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("http://localhost:11434");
+            _model=options.Value.EmbeddingModel;
         }
 
         public async Task<float[]> GenerateEmbeddingAsync(string text)
         {
             var response = await _httpClient.PostAsJsonAsync("/api/embeddings", new
             {
-                model = Model,
+                model = _model,
                 prompt = text  // Ollama "prompt" kullanır.
             });
 

@@ -1,4 +1,6 @@
 ﻿using AdvancedSearch.Domain.Interfaces.Services;
+using AdvancedSearch.Infrastructure.Options;
+using Microsoft.Extensions.Options;
 using ShopSage.Domain.Entities;
 using System.Net.Http.Json;
 using System.Text;
@@ -9,12 +11,11 @@ namespace AdvancedSearch.Infrastructure.Services
     public class OllamaRagService : IRagService
     {
         private readonly HttpClient _httpClient;
-        private const string ModelName = "qwen2.5";
-
-        public OllamaRagService(HttpClient httpClient)
+        private readonly string _model;
+        public OllamaRagService(HttpClient httpClient,IOptions<OllamaOptions> options)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("http://localhost:11434/");
+            _model=options.Value.ChatModel;
         }
 
         public async Task<string> GenerateAnswerAsync(string userQuestion, List<Product> products, CancellationToken cancellationToken)
@@ -36,7 +37,7 @@ namespace AdvancedSearch.Infrastructure.Services
 
             // Ollama API'sinin beklediği JSON gövdesi
             var requestBody = new OllamaChatRequest(
-                Model: ModelName,
+                Model: _model,
                 Messages: new List<OllamaChatMessage>
                 {
                     new OllamaChatMessage("system", systemPrompt),
