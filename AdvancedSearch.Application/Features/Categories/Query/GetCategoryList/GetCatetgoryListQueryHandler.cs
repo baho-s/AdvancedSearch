@@ -1,12 +1,6 @@
 ﻿using AdvancedSearch.Application.DTOs.CategoryDTOs;
-using AdvancedSearch.Domain.Interfaces.Repositories;
-using AdvancedSearchDomain.Interfaces.UnitOfWork;
+using AdvancedSearch.Application.Interfaces.Persistence;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdvancedSearch.Application.Features.Categories.Query.GetCategoryList
 {

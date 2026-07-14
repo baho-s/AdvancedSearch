@@ -1,8 +1,8 @@
-﻿using AdvancedSearch.Domain.Interfaces.Repositories;
+﻿using AdvancedSearch.Application.Interfaces.Persistence;
+using AdvancedSearch.Domain.Interfaces.Repositories;
 using AdvancedSearch.Infrastructure.Context;
 using AdvancedSearch.Infrastructure.Repositories;
 using AdvancedSearchDomain.Interfaces.Repositories;
-using AdvancedSearchDomain.Interfaces.UnitOfWork;
 
 namespace AdvancedSearch.Infrastructure.UnitOfWork
 {

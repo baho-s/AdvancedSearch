@@ -1,12 +1,6 @@
-﻿using AdvancedSearchDomain.Interfaces.Services;
-using AdvancedSearchDomain.Interfaces.UnitOfWork;
+﻿using AdvancedSearch.Application.Interfaces.Persistence;
+using AdvancedSearchDomain.Interfaces.Services;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdvancedSearch.Application.Features.ProductComment.Comamnd.CreateComment
 {

@@ -6,11 +6,11 @@ using AdvancedSearch.Infrastructure.Options;
 using AdvancedSearch.Infrastructure.Services;
 using AdvancedSearch.Infrastructure.UnitOfWork;
 using AdvancedSearchDomain.Interfaces.Services;
-using AdvancedSearchDomain.Interfaces.UnitOfWork;
 using AdvancedSearchDomain.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using AdvancedSearch.Application.Interfaces.AI;
+using AdvancedSearch.Application.Interfaces.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 

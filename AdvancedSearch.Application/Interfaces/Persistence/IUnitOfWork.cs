@@ -1,12 +1,7 @@
 ﻿using AdvancedSearch.Domain.Interfaces.Repositories;
 using AdvancedSearchDomain.Interfaces.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AdvancedSearchDomain.Interfaces.UnitOfWork
+namespace AdvancedSearch.Application.Interfaces.Persistence
 {
     public interface IUnitOfWork
     {
@@ -15,7 +10,6 @@ namespace AdvancedSearchDomain.Interfaces.UnitOfWork
         ICustomerRepository Customers { get; }
         ICategoryRepository Categories { get; }
 
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken=default);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
-

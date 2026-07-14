@@ -1,5 +1,5 @@
 ﻿using AdvancedSearch.Application.Interfaces.AI;
-using AdvancedSearchDomain.Interfaces.UnitOfWork;
+using AdvancedSearch.Application.Interfaces.Persistence;
 using MediatR;
 using ShopSage.Domain.Entities;
 
