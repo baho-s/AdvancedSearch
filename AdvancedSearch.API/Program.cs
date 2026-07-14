@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using AdvancedSearch.Application.Interfaces.AI;
 using AdvancedSearch.Application.Interfaces.Persistence;
+using AdvancedSearchDomain.Interfaces.Repositories;
+using AdvancedSearch.Infrastructure.Repositories;
+using AdvancedSearch.Domain.Interfaces.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +38,10 @@ builder.Services.AddOptions<OllamaOptions>()
 
 builder.Services.AddMediatR(cfg=>cfg.RegisterServicesFromAssembly(typeof(CreateProductCommand).Assembly));
 
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICurrentUserService, FakeCurrentUserService>();
 

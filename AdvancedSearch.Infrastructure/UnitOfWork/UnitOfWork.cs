@@ -13,20 +13,20 @@ namespace AdvancedSearch.Infrastructure.UnitOfWork
         public IProductRepository Products { get; private set; }
         public ICustomerRepository Customers { get; private set; }
         public ICategoryRepository Categories { get; private set; }
-        public UnitOfWork(AppDbContext context)
+        public UnitOfWork(AppDbContext context,IOrderRepository orderRepository,IProductRepository productRepository,ICustomerRepository customerRepository,ICategoryRepository categoryRepository)
         {
             _context = context;
-            Orders = new OrderRepository(_context);
-            Products = new ProductRepository(_context);
-            Customers = new CustomerRepository(_context);
-            Categories = new CategoryRepository(_context);
+            Orders = orderRepository;
+            Products = productRepository;
+            Customers = customerRepository;
+            Categories = categoryRepository;
         }
 
 
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken=default)
         {
-            return await _context.SaveChangesAsync(cancellationToken);            
+            return await _context.SaveChangesAsync(cancellationToken);   
         }
     }
 }
