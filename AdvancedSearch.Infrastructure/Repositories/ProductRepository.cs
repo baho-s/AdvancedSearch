@@ -24,7 +24,8 @@ namespace AdvancedSearch.Infrastructure.Repositories
             var vector=new Vector(queryEmbedding);
 
             return await _context.Products
-                .Where(p=>p.Embedding!=null && p.Stock>0)//Embedding'i olan ve stokta bulunan ürünleri filtrele
+                .AsNoTracking()
+                .Where(p=>p.Embedding!=null && p.Stock>0 && !p.IsDeleted)//Embedding'i olan ve stokta bulunan ürünleri filtrele
                 .OrderBy(p=> p.Embedding!.CosineDistance(vector))//Embedding'ler arasındaki kosinüs benzerliğine göre sırala
                 .Take(topK)//En benzer topK ürünü al
                 .ToListAsync(cancellationToken);
